@@ -13,7 +13,7 @@ const rateLimit = require("express-rate-limit");
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3001;
+const port = 3001;
 
 // =============================================================================
 // MIDDLEWARE
@@ -42,13 +42,6 @@ app.use("/api", limiter);
 // Body parsing
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true }));
-
-if (process.env.NODE_ENV === "development") {
-  app.use((req, res, next) => {
-    debug(`${req.method} ${req.url}`);
-    next();
-  });
-}
 
 // =============================================================================
 // DATABASE CONNECTION
