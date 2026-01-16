@@ -56,14 +56,12 @@ if (process.env.NODE_ENV === "development") {
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(
-      process.env.MONGO_URI || "mongodb://localhost:27017/quiz-mania",
-      {
-        maxPoolSize: 10, // Maintain up to 10 socket connections
-        serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
-        socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
-      }
-    );
+    const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.rlpdnti.mongodb.net/?appName=Cluster0`;
+    await mongoose.connect(uri, {
+      maxPoolSize: 10, // Maintain up to 10 socket connections
+      serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
+      socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+    });
     debug("✅ MongoDB connected successfully");
   } catch (error) {
     debug("❌ MongoDB connection error: %s", error.message);
